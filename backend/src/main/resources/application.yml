@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: playlistbridge
+
+server:
+  forward-headers-strategy: framework
+
+spotify:
+  client-id: ${SPOTIFY_CLIENT_ID:}
+  client-secret: ${SPOTIFY_CLIENT_SECRET:}
+  redirect-uri: ${SPOTIFY_REDIRECT_URI:http://localhost:8080/login/oauth2/code/spotify}
+
+google:
+  client-id: ${GOOGLE_CLIENT_ID:}
+  client-secret: ${GOOGLE_CLIENT_SECRET:}
+  redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/login/oauth2/code/google}
+  scope: ${GOOGLE_SCOPE:https://www.googleapis.com/auth/youtube}
+
+frontend:
+  public-url: ${FRONTEND_PUBLIC_URL:http://localhost:3000}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
