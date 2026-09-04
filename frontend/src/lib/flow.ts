@@ -36,6 +36,7 @@ export type FlowAction =
   | { type: "preview/loading" }
   | { type: "preview/success"; preview: PreviewResult }
   | { type: "preview/error"; message: string }
+  | { type: "review/continue" }
   | { type: "destination/privacy"; privacy: FlowState["privacy"] }
   | { type: "conversion/loading" }
   | { type: "conversion/success"; result: ConversionResult }
@@ -59,9 +60,11 @@ export const flowReducer = (state: FlowState, action: FlowAction): FlowState => 
     case "preview/loading":
       return { ...state, step: "review", error: null };
     case "preview/success":
-      return { ...state, step: "destination", preview: action.preview, error: null };
+      return { ...state, step: "review", preview: action.preview, error: null };
     case "preview/error":
       return { ...state, step: "select", error: action.message };
+    case "review/continue":
+      return { ...state, step: "destination", error: null };
     case "destination/privacy":
       return { ...state, privacy: action.privacy };
     case "conversion/loading":

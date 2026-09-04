@@ -163,7 +163,7 @@ describe("conversion flow state", () => {
     expect(selected.selectedIds).toEqual(["p1"]);
   });
 
-  it("moves to destination after preview and preserves partial matches", () => {
+  it("moves to review after preview and continues to destination explicitly", () => {
     const state = flowReducer(initialFlowState, {
       type: "preview/success",
       preview: {
@@ -174,7 +174,10 @@ describe("conversion flow state", () => {
       },
     });
 
-    expect(state.step).toBe("destination");
+    expect(state.step).toBe("review");
     expect(state.preview?.matches[0].status).toBe("partial");
+
+    const destination = flowReducer(state, { type: "review/continue" });
+    expect(destination.step).toBe("destination");
   });
 });
